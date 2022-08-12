@@ -1,5 +1,5 @@
 /*
- * Created on Thu Aug 11 2022 10:30:00 PM
+ * Created on Fri Aug 12 2022 9:49:26 PM
  *
  * The MIT License (MIT)
  * Copyright (c) 2022 Aananth C N
@@ -18,14 +18,25 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef MCU_H
-#define MCU_H
+#ifndef PLATFORM_RP2040_H
+#define PLATFORM_RP2040_H
 
-#include <Platform_Types.h>
+#include "platform_deps.h"
 
-typedef struct {
-	Cpu_Type cpu_type;
-} Mcu_ConfigType;
+// PLATFORM044
+#define CPU_TYPE	CPU_TYPE_32
+// PLATFORM048, PLATFORM049
+#define CPU_BIT_ORDER	LSB_FIRST
+// PLATFORM050, PLATFORM051
+#define CPU_BYTE_ORDER	LOW_BYTE_FIRST
+
+
+typedef unsigned char   uint8_least;
+typedef unsigned short  uint16_least;
+typedef unsigned int    uint32_least;
+typedef signed char     sint8_least;
+typedef signed short    sint16_least;
+typedef signed int      sint32_least;
 
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * Created on Thu Aug 11 2022 10:30:00 PM
+ * Created on Thu Aug 11 2022 11:47:06 PM
  *
  * The MIT License (MIT)
  * Copyright (c) 2022 Aananth C N
@@ -18,14 +18,34 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef MCU_H
-#define MCU_H
+#ifndef PLATFORM_TYPES_H
+#define PLATFORM_TYPES_H
 
-#include <Platform_Types.h>
+#include <platform.h> // the auto generated file, includes board specific header file
 
-typedef struct {
-	Cpu_Type cpu_type;
-} Mcu_ConfigType;
 
+// PLATFORM027, PLATFORM034
+typedef enum {
+        FALSE,
+        TRUE
+} boolean;
+
+
+typedef unsigned char 	uint8;
+typedef unsigned short 	uint16;
+typedef unsigned int 	uint32;
+typedef signed char     sint8;
+typedef signed short    sint16;
+typedef signed int      sint32;
+typedef float           float32;
+typedef double          float64;
+
+
+#define PLATFORM_MODULE_ID              0
+
+// R<major>.<minor>.<revision>
+#define PLATFORM_AR_MAJOR_VERSION       20
+#define PLATFORM_AR_MINOR_VERSION       11
+#define PLATFORM_AR_PATCH_VERSION       0
 
 #endif
