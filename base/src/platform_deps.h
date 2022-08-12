@@ -42,6 +42,6 @@ enum {
 enum {
 	HIGH_BYTE_FIRST,	/* Bytewise Big Endian */
 	LOW_BYTE_FIRST		/* Bytewise Little Endian */
-}
+};
 
 #endif
