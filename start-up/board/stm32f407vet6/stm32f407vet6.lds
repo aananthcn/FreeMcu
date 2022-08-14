@@ -3,7 +3,7 @@
  * Date: 21 Nov 2021
  */
 
-INCLUDE tools/src/sg_stack.lds
+INCLUDE src/sg_stack.lds
 
 
 /* Flash Memory: 512kB */

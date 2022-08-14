@@ -1,5 +1,5 @@
 
-INCDIRS  += -I ${CWD}/arch/arm
+INCDIRS  += -I ${MCU_PATH}/start-up/arch/arm
 
 LDFLAGS  += -g
 CFLAGS   += -Werror ${INCDIRS} -g
@@ -9,6 +9,6 @@ $(info compiling arch/arm source files)
 
 
 ARCH_OBJS	:= \
-	${CWD}/arch/arm/generic/lowlevel.o \
-	${CWD}/arch/arm/generic/interrupt.o
+	${MCU_PATH}/start-up/arch/arm/generic/lowlevel.o \
+	${MCU_PATH}/start-up/arch/arm/generic/interrupt.o
 

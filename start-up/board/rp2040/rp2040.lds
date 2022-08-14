@@ -3,7 +3,7 @@
  * Date: 21 Nov 2021
  */
 
-INCLUDE tools/src/sg_stack.lds
+INCLUDE tools/os_builder/src/sg_stack.lds
 
 MEMORY
 {
