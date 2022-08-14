@@ -3,7 +3,7 @@
  * Date: 21 Oct 2021
  */
 
-INCLUDE src/sg_stack.lds
+INCLUDE tools/os_builder/src/sg_stack.lds
 
 
 /* Memory Map: 128 MB RAM allocated (0x0000_0000 to 0x07FF_FFFF) */
