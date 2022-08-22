@@ -8,6 +8,8 @@
 
 #include <os_api.h>
 
+#include <Mcu.h>
+
 
 #include "rp2040.h"
 
@@ -259,7 +261,7 @@ int brd_console_init(void) {
 }
 
 
-void main(void) {
+void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
         uc_ss_reset();
         uc_osc_init();
         uc_pll_init(PLL_SYS_BASE, 1500, 6, 2); /*SYS_VCO: min = 5 MHz, max = 1600 MHz */
@@ -268,8 +270,4 @@ void main(void) {
         brd_setup_systimer();
         brd_console_init();
         brd_sys_enable_interrupts();
-
-        StartOS(OSDEFAULTAPPMODE);
-        /* The execution should never reach here */
-        pr_log("Info: StartOS() function returned!! OS Exits!\n");
 }

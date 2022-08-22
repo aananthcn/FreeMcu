@@ -8,6 +8,7 @@
 
 #include <os_api.h>
 
+#include <Mcu.h>
 
 #include "stm32f407vet6.h"
 
@@ -109,12 +110,8 @@ int brd_console_init(void) {
 }
 
 
-void main(void) {
+void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
         brd_setup_systimer();
         brd_console_init();
         brd_sys_enable_interrupts();
-
-        StartOS(OSDEFAULTAPPMODE);
-        /* The execution should never reach here */
-        pr_log("Info: StartOS() function returned!! OS Exits!\n");
 }

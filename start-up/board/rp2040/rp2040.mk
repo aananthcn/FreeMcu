@@ -15,6 +15,8 @@ endif
 INCDIRS  := -I ${MCU_PATH}/start-up/include \
             -I ${MCU_PATH}/start-up/include/arch/aarch32/ \
 	    -I ${MCU_PATH}/start-up/board/${BOARD_NAME} \
+	    -I ${MCU_PATH}/api \
+	    -I ${MCU_PATH}/base/api \
 	    -I ${MCU_PATH}/start-up/lib/include
 	    
 

@@ -41,7 +41,7 @@ copy_bss:
 	bne copy_bss
 
 	/* jump to main */
-	bl main
+	bl EcuM_Init
 	b .
  
 .end

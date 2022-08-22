@@ -49,7 +49,7 @@ copy_bss:
         bne copy_bss
 
         /* jump to main */
-        bl main
+        bl EcuM_Init
         b .
  
 hold_non_core0_from_exec:

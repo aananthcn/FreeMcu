@@ -28,4 +28,6 @@ typedef struct {
 } Mcu_ConfigType;
 
 
+void Mcu_Init(const Mcu_ConfigType* ConfigPtr);
+
 #endif
