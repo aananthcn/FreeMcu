@@ -26,5 +26,29 @@
 #include "Platform_Types.h"
 
 
+typedef uint8 Std_ReturnType;
+
+// OS
+#define E_OK            0
+#define E_NOT_OK        1
+
+// SCHM
+#define SCHM_E_OK 0 /* [SWS_Rte_07289] */
+#define SCHM_E_LIMIT 130 /* [SWS_Rte_07290] */
+#define SCHM_E_NO_DATA 131 /* [SWS_Rte_07562] */
+#define SCHM_E_TRANSMIT_ACK 132 /* [SWS_Rte_07563] */
+#define SCHM_E_IN_EXCLUSIVE_AREA 135 /* [SWS_Rte_02747] */
+#define SCHM_E_TIMEOUT 129 /* [SWS_Rte_07054] */
+#define SCHM_E_LOST_DATA 64 /* [SWS_Rte_02312] */
+
+
+typedef struct {
+        uint16 vendorID;
+        uint16 moduleID;
+        uint8 sw_major_version;
+        uint8 sw_minor_version;
+        uint8 sw_patch_version;
+} Std_VersionInfoType;
+
 
 #endif

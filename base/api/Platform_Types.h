@@ -21,6 +21,7 @@
 #ifndef PLATFORM_TYPES_H
 #define PLATFORM_TYPES_H
 
+#include <stdint.h>
 #include <platform.h> // the auto generated file, includes board specific header file
 
 
@@ -31,14 +32,18 @@ typedef enum {
 } boolean;
 
 
-typedef unsigned char 	uint8;
-typedef unsigned short 	uint16;
-typedef unsigned int 	uint32;
-typedef signed char     sint8;
-typedef signed short    sint16;
-typedef signed int      sint32;
-typedef float           float32;
-typedef double          float64;
+typedef uint8_t   uint8;
+typedef uint16_t  uint16;
+typedef uint32_t  uint32;
+typedef uint64_t  uint64;
+
+typedef int8_t    sint8;
+typedef int16_t   sint16;
+typedef int32_t   sint32;
+typedef int64_t   sint64;
+
+typedef float     float32;
+typedef double    float64;
 
 
 #define PLATFORM_MODULE_ID              0

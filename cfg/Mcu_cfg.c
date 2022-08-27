@@ -1,5 +1,5 @@
 /*
- * Created on Thu Aug 11 2022 10:30:00 PM
+ * Created on Sat Aug 27 2022 9:27:49 PM
  *
  * The MIT License (MIT)
  * Copyright (c) 2022 Aananth C N
@@ -18,21 +18,10 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef MCU_H
-#define MCU_H
 
+#include <asr_cfg_defs.h>
 #include <Platform_Types.h>
 
-typedef struct {
-	Cpu_Type cpu_type;
-} Mcu_ConfigType;
+#include <Mcu.h>
 
-
-// Globals
-extern Mcu_ConfigType McuConfig;
-
-
-// Public Functions
-void Mcu_Init(const Mcu_ConfigType* ConfigPtr);
-
-#endif
+Mcu_ConfigType McuConfig ASR_CFG_SECTION(".Mcu");
