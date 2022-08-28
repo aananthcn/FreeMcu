@@ -121,7 +121,11 @@ void __attribute__((interrupt)) _PendSV_handler(void) {
 extern void SystemTickISR(void);
 /* Exception no: 15 */
 void __attribute__((interrupt)) _SysTick_handler(void) {
+        u32 sp_curr;
+
+        sp_curr = _set_stack_ptr(_get_irq_stack_ptr());
         SystemTickISR();
+        _set_stack_ptr(sp_curr);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -4,13 +4,26 @@
 .align 2
 
 .text
- 
+
+.global _get_irq_stack_ptr
 .global _set_stack_ptr
 .global _get_stack_ptr
 .global _get_next_pc
 .global _set_sp_and_pc
 .global _save_context
 .global _restore_context
+
+
+/*/
+ * Function Name: _get_irq_stack_ptr
+ * Arguments: arg1 (r0) = void
+ * Returns: irq stack pointer
+ * Description: This function retrieves the sp for IRQ
+/*/
+_get_irq_stack_ptr:
+	ldr r0, =_irq_stack_top
+	mov pc, lr
+
 
 
 /*/
