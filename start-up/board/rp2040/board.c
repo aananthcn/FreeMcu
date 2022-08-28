@@ -36,7 +36,7 @@ int uc_uart_init(u32 base) {
         SET_PAD_GPIO(1, (1<<6)|(1<<4)|(1<<2)|(1<<1)); // this works!
         SET_GPIO_CTRL(1, GPIO_FUNC_UART);
 
-        /* FreeOSEK's standard baudrate = 115200, CLK_PERI = 125 MHz */
+        /* NammaAUTOSAR's standard baudrate = 115200, CLK_PERI = 125 MHz */
         baud_rate_div = ((PERI_CLK_MHz * MHz) << 3) / (115200);
         baud_divint = baud_rate_div >> (3+4);
         if (baud_divint == 0) {
