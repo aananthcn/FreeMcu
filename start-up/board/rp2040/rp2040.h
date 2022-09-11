@@ -162,6 +162,7 @@ RP2040 System Clock:  125 MHz (max)
 /* GPIO Registers */
 #define GPIO_BASE               (0x40014000)
 #define GET_GPIO_STATUS(n)      (*((volatile u32*)(GPIO_BASE + (2*(n))*4)))
+#define GET_GPIO_CTRL(n)        (*((volatile u32*)(GPIO_BASE + ((2*(n))+1)*4)))
 #define SET_GPIO_CTRL(n, val)   ((*((volatile u32*)(GPIO_BASE + ((2*(n))+1)*4))) = (val))
 
 enum gpio_function {
@@ -179,7 +180,8 @@ enum gpio_function {
 };
 
 #define PADS_BANK0_BASE         (0x4001c000)
-#define SET_PAD_GPIO(n, val)   ((*((volatile u32*)(PADS_BANK0_BASE + (((n)+1)*4)))) = (val))
+#define GET_PAD_GPIO(n)         (*((volatile u32*)(PADS_BANK0_BASE + (((n)+1)*4))))
+#define SET_PAD_GPIO(n, val)    ((*((volatile u32*)(PADS_BANK0_BASE + (((n)+1)*4)))) = (val))
 
 
 /* SIO - Single-cycle IO */
