@@ -25,16 +25,16 @@
 #define MHz                     (1000000)
 
 
+static u32 UartBase;
+
+
 /* Functions */
 int brd_uart_init(u32 base) {
         u32 baud_divint, baud_divfrac;
         u32 baud_rate_div;
 
-        /* set PAD, FUNCTSEL for GPIO 0 (TX0) and 1 (RX0) pins */
-        SET_PAD_GPIO(0, (1<<6)|(1<<4)|(1<<2)|(1<<1)); // this works!
-        SET_GPIO_CTRL(0, GPIO_FUNC_UART);
-        SET_PAD_GPIO(1, (1<<6)|(1<<4)|(1<<2)|(1<<1)); // this works!
-        SET_GPIO_CTRL(1, GPIO_FUNC_UART);
+        /* Save the base to a global variable */
+        UartBase = base;
 
         /* NammaAUTOSAR's standard baudrate = 115200, CLK_PERI = 125 MHz */
         baud_rate_div = ((PERI_CLK_MHz * MHz) << 3) / (115200);
@@ -53,14 +53,14 @@ int brd_uart_init(u32 base) {
         }
 
         /* Set computed baudrate values to registers */
-        UART0_IBRD = baud_divint; //16 bits
-        UART0_FBRD = baud_divfrac; //6 bits
+        UART_IBRD(base) = baud_divint; //16 bits
+        UART_FBRD(base) = baud_divfrac; //6 bits
 
         /* UART Data Format & configs */
-        UART0_LCR_H = (0x3 << 5) /* 8-bit */ | (1 << 4) /* FEN */;
+        UART_LCR_H(base) = (0x3 << 5) /* 8-bit */ | (1 << 4) /* FEN */;
 
         /* Enable Tx, Rx and UART0 */
-        UART0_CR = (1 << 9) | (1 << 8) | (1 << 0);
+        UART_CR(base) = (1 << 9) | (1 << 8) | (1 << 0);
 
         return 0;
 }
@@ -69,11 +69,11 @@ int brd_uart_init(u32 base) {
 /* Serial console functions */
 int console_fputc(const int c) {
         /* wait if UART0 is busy */
-        while(UART0_FR & (1<<3)) {
+        while(UART_FR(UartBase) & (1<<3)) {
                 /* do nothing */
         }
 
-        UART0_DR = (unsigned int) (c & 0xFF);
+        UART_DR(UartBase) = (unsigned int) (c & 0xFF);
 
         return 0;
 }
@@ -103,7 +103,8 @@ int brd_ss_reset(void) {
                 SS_BIT_PADS_BANK0 |
                 SS_BIT_IO_BANK0 |
                 SS_BIT_JTAG |
-                SS_BIT_UART0
+                SS_BIT_UART1 |
+                SS_BIT_SPI0
         );
         return 0;
 }
@@ -157,17 +158,6 @@ int brd_clock_init(void) {
         /* CLK_RTC: SRC = none, AUXSRC = PLL_USB = 48 MHz */
         brd_config_clock(CLK_RTC_BASE, 0, 0);
 
-        /* CLK_GPOUTx: use 12 MHz crystal clock as clock source */
-        /* Not sure if this initialization is needed for normal GPIO usage */
-        CLK_GPOUT0_CTRL = 1 << 11 | 6 << 5;
-        CLK_GPOUT0_DIV = 10 << 8;
-        CLK_GPOUT1_CTRL = 10 << 11 | 6 << 5;
-        CLK_GPOUT1_DIV = 10 << 8;
-        CLK_GPOUT2_CTRL = 10 << 11 | 6 << 5;
-        CLK_GPOUT2_DIV = 10 << 8;
-        CLK_GPOUT3_CTRL = 10 << 11 | 6 << 5;
-        CLK_GPOUT3_DIV = 10 << 8;
-
         return 0;
 }
 
@@ -215,6 +205,7 @@ int brd_pll_init(u32 base, u32 vco_freq_mhz, u8 post_div1, u8 post_div2) {
         /* configure post dividers */
         *((volatile u32*)(base+PLL_PRIM_OFFSET)) = post_div1 << 16 | post_div2 << 12;
         *((volatile u32*)(base+PLL_PWR_OFFSET)) &= ~(1 << 3); /* clear POSTDIVPD bit */
+
         return 0;
 }
 
@@ -254,7 +245,7 @@ int brd_sys_enable_interrupts() {
 
 
 int brd_console_init(void) {
-        brd_uart_init(UART0_BASE);
+        brd_uart_init(UART1_BASE);
         pr_log_init();
 
         return 0;

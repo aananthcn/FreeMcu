@@ -196,13 +196,13 @@ enum gpio_function {
 #define UART0_BASE              (0x40034000)
 #define UART1_BASE              (0x40038000)
 
-#define UART0_DR                (*((volatile u32*)(UART0_BASE + 0x00)))
-#define UART0_RSR_ECR           (*((volatile u32*)(UART0_BASE + 0x04)))
-#define UART0_FR                (*((volatile u32*)(UART0_BASE + 0x18)))
-#define UART0_IBRD              (*((volatile u32*)(UART0_BASE + 0x24)))
-#define UART0_FBRD              (*((volatile u32*)(UART0_BASE + 0x28)))
-#define UART0_LCR_H             (*((volatile u32*)(UART0_BASE + 0x2c)))
-#define UART0_CR                (*((volatile u32*)(UART0_BASE + 0x30)))
+#define UART_DR(base)           (*((volatile u32*)(base + 0x00)))
+#define UART_RSR_ECR(base)      (*((volatile u32*)(base + 0x04)))
+#define UART_FR(base)           (*((volatile u32*)(base + 0x18)))
+#define UART_IBRD(base)         (*((volatile u32*)(base + 0x24)))
+#define UART_FBRD(base)         (*((volatile u32*)(base + 0x28)))
+#define UART_LCR_H(base)        (*((volatile u32*)(base + 0x2c)))
+#define UART_CR(base)           (*((volatile u32*)(base + 0x30)))
 
 
 
