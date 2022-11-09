@@ -6,7 +6,7 @@
 
 #define BOARD_STM32F407VET6	1
 
-int brd_setup_sytimer(void);
-int brd_get_usec_syscount(u32 *ucount);
+int bsp_setup_sytimer(void);
+int bsp_get_usec_syscount(u32 *ucount);
 
 #endif

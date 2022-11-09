@@ -39,7 +39,7 @@ int console_fputs(const char *s) {
 /* SysTick clk = System Clock = 8 MHz (FCLK Cortex free-running clock) */
 #define SYSTEM_CLOCK_MHz        (8)
 
-int brd_setup_systimer(void) {
+int bsp_setup_systimer(void) {
         u32 tick_count = OS_TICK_DURATION_ns * SYSTEM_CLOCK_MHz / CLOCK_SEC2MSEC;
 
         /* Setup Clocks and Oscillator */
@@ -66,7 +66,7 @@ int brd_setup_systimer(void) {
         return 0;
 }
 
-int brd_get_usec_syscount(u32 *ucount) {
+int bsp_get_usec_syscount(u32 *ucount) {
         u32 count;
 
         *ucount = TIM2_CNT; /* Runs at 1 MHz, hence 1 count == 1 µs */
@@ -75,7 +75,7 @@ int brd_get_usec_syscount(u32 *ucount) {
 }
 
 
-int brd_sys_enable_interrupts() {
+int bsp_sys_enable_interrupts() {
 #if 0
         /* Enable interrupts */
         VIC_INTENABLE = 1 << ISR_SN_TIMER01;
@@ -85,7 +85,7 @@ int brd_sys_enable_interrupts() {
 }
 
 
-int brd_console_init(void) {
+int bsp_console_init(void) {
         /* USART1 is mapped to Port A, so, enable peripheral clock to GPIO-A */
         RCC_AHB1ENR |= (0x00000001);
         /* Configure GPIOs as Alt. Fun. for Tx (PA9) & Rx (PA10) pins */
@@ -111,7 +111,7 @@ int brd_console_init(void) {
 
 
 void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
-        brd_setup_systimer();
-        brd_console_init();
-        brd_sys_enable_interrupts();
+        bsp_setup_systimer();
+        bsp_console_init();
+        bsp_sys_enable_interrupts();
 }

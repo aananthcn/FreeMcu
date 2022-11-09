@@ -206,4 +206,38 @@ enum gpio_function {
 
 
 
+/* SPI Registers*/
+//========================
+#define SPI0_BASE               (0x4003c000)
+#define SPI1_BASE               (0x40040000)
+
+// control registers
+#define SSPCR0(base)            (*((volatile u32*)(base + 0x00)))
+#define SSPCR1(base)            (*((volatile u32*)(base + 0x04)))
+// data register
+#define SSPDR(base)             (*((volatile u32*)(base + 0x08)))
+// status register
+#define SSPSR(base)             (*((volatile u32*)(base + 0x0c)))
+// clock prescalar
+#define SSPCPSR(base)           (*((volatile u32*)(base + 0x10)))
+// interrupt mask set/clear
+#define SSPIMSC(base)           (*((volatile u32*)(base + 0x14)))
+// raw interrupt status
+#define SSPRIS(base)            (*((volatile u32*)(base + 0x18)))
+// masked interrupt status
+#define SSPMIS(base)            (*((volatile u32*)(base + 0x1c)))
+// interrupt clear register
+#define SSPICR(base)            (*((volatile u32*)(base + 0x20)))
+// DMA control
+#define SSPDMACR(base)          (*((volatile u32*)(base + 0x24)))
+// peripheral ID registers
+#define SSPPERIPHID0(base)      (*((volatile u32*)(base + 0xfe0)))
+#define SSPPERIPHID1(base)      (*((volatile u32*)(base + 0xfe4)))
+#define SSPPERIPHID2(base)      (*((volatile u32*)(base + 0xfe8)))
+#define SSPPERIPHID4(base)      (*((volatile u32*)(base + 0xfec)))
+// PrimeCell identification register
+#define SSPPCELLID0(base)       (*((volatile u32*)(base + 0xff0)))
+#define SSPPCELLID1(base)       (*((volatile u32*)(base + 0xff4)))
+
+
 #endif

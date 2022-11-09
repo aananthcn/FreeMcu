@@ -12,12 +12,11 @@ else
 LIB_GCC_A_PATH=/usr/lib/gcc/arm-none-eabi/${CC_VERS}/thumb/v6-m/nofp/
 endif
 
-INCDIRS  := -I ${MCU_PATH}/start-up/include \
-            -I ${MCU_PATH}/start-up/include/arch/aarch32/ \
-	    -I ${MCU_PATH}/start-up/board/${BOARD_NAME} \
+INCDIRS  := -I ${MCU_PATH}/src/bsp/startup \
+	    -I ${MCU_PATH}/src/bsp/startup/${BOARD_NAME} \
 	    -I ${MCU_PATH}/api \
-	    -I ${MCU_PATH}/base/api \
-	    -I ${MCU_PATH}/start-up/lib/include
+	    -I ${MCU_PATH}/src/common/api \
+	    -I ${MCU_PATH}/src/bsp/startup/lib/include
 	    
 
 LDFLAGS  += -nostdlib -g -L${LIB_GCC_A_PATH} -lgcc
@@ -26,18 +25,18 @@ ASFLAGS  += ${INCDIRS} -g
 
 $(info compiling ${BOARD_NAME} board specific files)
 CFLAGS  += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus
-LDFILE	:= ${MCU_PATH}/start-up/board/${BOARD_NAME}/${BOARD_NAME}.lds
+LDFILE	:= ${MCU_PATH}/src/bsp/startup/${BOARD_NAME}/${BOARD_NAME}.lds
 LDFLAGS += -mthumb -mthumb-interwork -marmelf  -T ${LDFILE}
 
 
 
 BRD_OBJS := \
-	${MCU_PATH}/start-up/board/rp2040/boot_stage2.o \
-	${MCU_PATH}/start-up/board/rp2040/board.o \
-	${MCU_PATH}/start-up/board/rp2040/vector_handlers.o \
-	${MCU_PATH}/start-up/board/rp2040/vectors.o \
-	${MCU_PATH}/start-up/board/rp2040/interrupt.o \
-	${MCU_PATH}/start-up/board/rp2040/startup.o \
-	${MCU_PATH}/start-up/board/rp2040/bootrom.o 
+	${MCU_PATH}/src/bsp/startup/rp2040/boot_stage2.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/board.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/vector_handlers.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/vectors.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/interrupt.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/startup.o \
+	${MCU_PATH}/src/bsp/startup/rp2040/bootrom.o 
 
 

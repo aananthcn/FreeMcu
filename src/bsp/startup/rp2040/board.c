@@ -29,7 +29,7 @@ static u32 UartBase;
 
 
 /* Functions */
-int brd_uart_init(u32 base) {
+int bsp_uart_init(u32 base) {
         u32 baud_divint, baud_divfrac;
         u32 baud_rate_div;
 
@@ -93,7 +93,7 @@ int console_fputs(const char *s) {
 
 
 /* Microcontroller Subsystem Reset */
-int brd_ss_reset(void) {
+int bsp_ss_reset(void) {
         RESET_CTRL = ~(
                 SS_BIT_TIMER |
                 SS_BIT_PLL_SYS |
@@ -111,7 +111,7 @@ int brd_ss_reset(void) {
 
 
 
-int brd_osc_init(void) {
+int bsp_osc_init(void) {
         XOSC_CTRL    = XOSC_FREQ_RANGE_1_15MHz;
         XOSC_STARTUP = XOSC_DELAY((((XOSC_MHz * MHz) / CLOCK_SEC2MSEC) + 128) / 256);
         XOSC_CTRL   |= XOSC_ENABLE;
@@ -121,7 +121,7 @@ int brd_osc_init(void) {
 
 
 
-int brd_config_clock(u32 reg_base, u8 clksrc, u8 auxsrc) {
+int bsp_config_clock(u32 reg_base, u8 clksrc, u8 auxsrc) {
         /* First reset the Clock src, else system may hang */
         *(volatile u32*)(reg_base + CLK_CTRL) &= ~(0x3);
         while(!((*(volatile u32*)(reg_base + CLK_SELECTED)) & (1)));
@@ -137,26 +137,26 @@ int brd_config_clock(u32 reg_base, u8 clksrc, u8 auxsrc) {
 }
 
 
-int brd_clock_init(void) {
+int bsp_clock_init(void) {
         u32 clksrc, auxsrc;
 
         /* CLK_REF: SRC = XOSC = 12 MHz, No AUXSRC */
-        brd_config_clock(CLK_REF_BASE, 2, 0);
+        bsp_config_clock(CLK_REF_BASE, 2, 0);
 
         /* CLK_SYS: SRC = SYS_AUX, AUXSRC = PLL_SYS = 125 MHz */
-        brd_config_clock(CLK_SYS_BASE, 1, 0);
+        bsp_config_clock(CLK_SYS_BASE, 1, 0);
 
         /* CLK_PERI: AUXSRC = CLK_SYS = 125 MHz */
         CLK_PERI_CTRL = PERI_ENABLE | PERI_AUXSRC(0);
 
         /* CLK_USB: SRC = none, AUXSRC = PLL_USB = 48 MHz */
-        brd_config_clock(CLK_USB_BASE, 0, 0);
+        bsp_config_clock(CLK_USB_BASE, 0, 0);
 
         /* CLK_ADC: SRC = none, AUXSRC = PLL_USB = 48 MHz */
-        brd_config_clock(CLK_ADC_BASE, 0, 0);
+        bsp_config_clock(CLK_ADC_BASE, 0, 0);
 
         /* CLK_RTC: SRC = none, AUXSRC = PLL_USB = 48 MHz */
-        brd_config_clock(CLK_RTC_BASE, 0, 0);
+        bsp_config_clock(CLK_RTC_BASE, 0, 0);
 
         return 0;
 }
@@ -167,14 +167,14 @@ int brd_clock_init(void) {
     SYS PLL: 12 / 1    =   12MHz * 125 = 1500 MHz / 6 / 2  = 125 MHz
     USB PLL: 12 / 1    =   12MHz * 40  =  480 MHz / 5 / 2  =  48 MHz
 /*/
-int brd_pll_init(u32 base, u32 vco_freq_mhz, u8 post_div1, u8 post_div2) {
+int bsp_pll_init(u32 base, u32 vco_freq_mhz, u8 post_div1, u8 post_div2) {
         u32 vco_freq = (vco_freq_mhz * MHz); 
         u32 refdiv = 1;
         u32 fbdiv, ref_mhz;
 
         /* let us switch to ROSC clock before PLL power down */
-        brd_config_clock(CLK_SYS_BASE, 0, 2);
-        brd_config_clock(CLK_REF_BASE, 0, 0);
+        bsp_config_clock(CLK_SYS_BASE, 0, 2);
+        bsp_config_clock(CLK_REF_BASE, 0, 0);
 
         /* power down PLL to configure it correctly */
         *((volatile u32*)(base+PLL_PWR_OFFSET)) = (1 << 5) | (1 << 3) | (1 << 2) | (1 << 0);
@@ -210,7 +210,7 @@ int brd_pll_init(u32 base, u32 vco_freq_mhz, u8 post_div1, u8 post_div2) {
 }
 
 
-int brd_setup_systimer(void) {
+int bsp_setup_systimer(void) {
         register u32 tick_count = OS_TICK_DURATION_ns * CPU_CLK_MHz / CLOCK_SEC2MSEC;
 
         /* Setup SysTick clock source and enable interrupt */
@@ -225,7 +225,7 @@ int brd_setup_systimer(void) {
 }
 
 
-int brd_get_usec_syscount(u32 *ucount) {
+int bsp_get_usec_syscount(u32 *ucount) {
         u32 count;
 
         *ucount = TIMELR; /* lower 32-bit of a 64-bit counter, incremented once per microsecond */
@@ -234,7 +234,7 @@ int brd_get_usec_syscount(u32 *ucount) {
 }
 
 
-int brd_sys_enable_interrupts() {
+int bsp_sys_enable_interrupts() {
 #if 0
         /* Enable interrupts */
         VIC_INTENABLE = 1 << ISR_SN_TIMER01;
@@ -244,21 +244,23 @@ int brd_sys_enable_interrupts() {
 }
 
 
-int brd_console_init(void) {
-        brd_uart_init(UART1_BASE);
+int bsp_console_init(void) {
+        bsp_uart_init(UART1_BASE);
         pr_log_init();
 
         return 0;
 }
 
 
-void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
-        brd_ss_reset();
-        brd_osc_init();
-        brd_pll_init(PLL_SYS_BASE, 1500, 6, 2); /*SYS_VCO: min = 5 MHz, max = 1600 MHz */
-        brd_pll_init(PLL_USB_BASE, 480, 5, 2);
-        brd_clock_init();
-        brd_setup_systimer();
-        brd_console_init();
-        brd_sys_enable_interrupts();
+int bsp_init(void) {
+        bsp_ss_reset();
+        bsp_osc_init();
+        bsp_pll_init(PLL_SYS_BASE, 1500, 6, 2); /*SYS_VCO: min = 5 MHz, max = 1600 MHz */
+        bsp_pll_init(PLL_USB_BASE, 480, 5, 2);
+        bsp_clock_init();
+        bsp_setup_systimer();
+        bsp_console_init();
+        bsp_sys_enable_interrupts();
+
+        return 0;
 }
