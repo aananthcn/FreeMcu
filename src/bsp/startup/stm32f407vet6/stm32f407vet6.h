@@ -3,7 +3,7 @@
 
 /* Register definitions for versatilepb board */
 
-#include <ostypes.h>
+#include <base_types.h>
 #include <stm32f407vet6/board.h>
 
 

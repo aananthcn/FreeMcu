@@ -1,7 +1,7 @@
 #ifndef _QEMU_VERSATILEPB
 #define _QEMU_VERSATILEPB
 
-#include <ostypes.h>
+#include <base_types.h>
 #include <platform.h>
 
 #define QEMU_VERSATILEPB	1

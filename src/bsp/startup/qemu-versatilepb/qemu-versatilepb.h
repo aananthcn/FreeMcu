@@ -3,7 +3,7 @@
 
 /* Register definitions for versatilepb board */
 
-#include <ostypes.h>
+#include <base_types.h>
 
 /* Interrupt Controller */
 #define VIC_BASE_ADDR   0x10140000

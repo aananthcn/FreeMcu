@@ -1,7 +1,7 @@
 #ifndef _BOARD_RP2040
 #define _BOARD_RP2040
 
-#include <ostypes.h>
+#include <base_types.h>
 #include <platform.h>
 
 #define BOARD_RP2040	1

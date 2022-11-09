@@ -1,4 +1,4 @@
-#include <ostypes.h>
+#include <base_types.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -92,7 +92,8 @@ int console_fputs(const char *s) {
 }
 
 
-/* Microcontroller Subsystem Reset */
+/* Microcontroller Subsystem Reset - this function should be broken and
+   distributed to the respective MCAL layer init function! */
 int bsp_ss_reset(void) {
         RESET_CTRL = ~(
                 SS_BIT_TIMER |
