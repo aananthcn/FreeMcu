@@ -218,6 +218,9 @@ enum gpio_function {
 #define SSPDR(base)             (*((volatile u32*)(base + 0x08)))
 // status register
 #define SSPSR(base)             (*((volatile u32*)(base + 0x0c)))
+#define SPI_BSY                 (1 << 4)
+#define SPI_RNE                 (1 << 2)
+#define SPI_TNF                 (1 << 1)
 // clock prescalar
 #define SSPCPSR(base)           (*((volatile u32*)(base + 0x10)))
 // interrupt mask set/clear
