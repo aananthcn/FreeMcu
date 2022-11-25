@@ -187,6 +187,7 @@ enum gpio_function {
 /* SIO - Single-cycle IO */
 #define SIO_BASE                (0xd0000000)
 
+#define SIO_GPIO_IN             (*((volatile u32*)(SIO_BASE + 0x04)))
 #define SIO_GPIO_OUT            (*((volatile u32*)(SIO_BASE + 0x10)))
 #define SIO_GPIO_OE             (*((volatile u32*)(SIO_BASE + 0x20)))
 
