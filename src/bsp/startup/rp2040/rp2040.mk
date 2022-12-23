@@ -23,10 +23,12 @@ LDFLAGS  += -nostdlib -g -L${LIB_GCC_A_PATH} -lgcc
 CFLAGS   += -Werror ${INCDIRS} -g
 ASFLAGS  += ${INCDIRS} -g 
 
+# CFLAGS  += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus
+# LDFLAGS += -mthumb -mthumb-interwork -marmelf 
+
 $(info compiling ${BOARD_NAME} board specific files)
-CFLAGS  += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus
 LDFILE	:= ${MCU_PATH}/src/bsp/startup/${BOARD_NAME}/${BOARD_NAME}.lds
-LDFLAGS += -mthumb -mthumb-interwork -marmelf  -T ${LDFILE}
+LDFLAGS += -T ${LDFILE}
 
 
 
