@@ -5,6 +5,7 @@ LDFLAGS  += -g
 CFLAGS   += -Werror ${INCDIRS} -g
 ASFLAGS  += ${INCDIRS} -g
 
+$(info  )
 $(info compiling arch/arm source files)
 
 

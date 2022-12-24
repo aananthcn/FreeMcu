@@ -40,6 +40,7 @@ INCDIRS  +=  \
 	    -I ${OS_PATH}/include
 
 
+$(info  )
 $(info compiling Mcu source files)
 
 

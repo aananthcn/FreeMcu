@@ -24,6 +24,7 @@ LDFLAGS  += -nostdlib -g -L${LIB_GCC_A_PATH} -lgcc
 CFLAGS   += -Werror ${INCDIRS} -g
 ASFLAGS  += ${INCDIRS} -g
 
+$(info  )
 $(info compiling stm32f407vet6 board specific files)
 #CFLAGS  += -march=armv7e-m 
 #ASFLAGS += -march=armv7e-m

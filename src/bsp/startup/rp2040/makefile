@@ -51,6 +51,7 @@ TARGET 	 := libMcu_Startup.la
 # include c_l_flags.mk to add more definitions specific to micro-controller
 include ${ROOT_DIR}/c_l_flags.mk
 
+$(info  )
 $(info compiling ${BOARD_NAME} board specific files)
 
 

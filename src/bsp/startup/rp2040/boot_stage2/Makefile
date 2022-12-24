@@ -19,6 +19,7 @@ BTL2_OBJS := \
 	${CWD}/boot2_w25q080.o
 
 
+$(info  )
 $(info compiling Common source files)
 ifeq ($(OS),Windows_NT)
 	MINGW_BUILD = TRUE

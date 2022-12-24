@@ -20,6 +20,7 @@ LDFLAGS  += -nostdlib -g -L${LIB_GCC_A_PATH} -lgcc
 CFLAGS   += -Werror ${INCDIRS} -g
 ASFLAGS  += ${INCDIRS} -g
 
+$(info  )
 $(info compiling qemu-versatilepb board specific files)
 CFLAGS  += -mcpu=arm926ej-s 
 ASFLAGS += -mcpu=arm926ej-s 
