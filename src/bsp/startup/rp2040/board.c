@@ -253,7 +253,7 @@ int bsp_console_init(void) {
 }
 
 
-int bsp_init(void) {
+int bsp_mcu_startup(void) {
         bsp_ss_reset();
         bsp_osc_init();
         bsp_pll_init(PLL_SYS_BASE, 1500, 6, 2); /*SYS_VCO: min = 5 MHz, max = 1600 MHz */

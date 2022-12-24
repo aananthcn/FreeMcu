@@ -48,7 +48,7 @@ MCU_OBJS := \
 	${MCU_PATH}/src/Mcu.o
 
 
-LDFLAGS := -g
+LDFLAGS := -g -relocatable
 CFLAGS  := -Werror ${INCDIRS} -g
 ASFLAGS := ${INCDIRS} -g
 TARGET 	:= libMcu.la
@@ -60,8 +60,7 @@ all: $(TARGET)
 LIB_OBJS := $(MCU_OBJS)
 
 $(TARGET): $(LIB_OBJS)
-	$(AR) r $@ $^
-	$(RANLIB) $@
+	$(LD) ${LDFLAGS} -o $@ $^
 
 clean:
 	$(RM) $(LIB_OBJS) $(TARGET)

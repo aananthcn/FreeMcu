@@ -24,17 +24,11 @@ AS=${COMPILER}as
 AR=${COMPILER}ar
 RANLIB=${COMPILER}ranlib
 OBJCOPY=${COMPILER}objcopy
-BOARD_NAME=rp2040
 
 
+include c_l_flags.mk # include the hand-modified local file
 include ${ROOT_DIR}/path_defs.mk
 
-CC_VERS := $(shell ${CC} -dumpfullversion)
-ifeq ($(OS),Windows_NT)
-LIB_GCC_A_PATH=${MINGW_ROOT}/lib/gcc/arm-none-eabi/${CC_VERS}/thumb/v6-m/nofp/
-else
-LIB_GCC_A_PATH=/usr/lib/gcc/arm-none-eabi/${CC_VERS}/thumb/v6-m/nofp/
-endif
 
 INCDIRS  := -I ${MCU_PATH}/src/bsp/startup \
 	    -I ${MCU_PATH}/src/bsp/startup/${BOARD_NAME} \
@@ -50,20 +44,14 @@ INCDIRS  := -I ${MCU_PATH}/src/bsp/startup \
 	    -I ${OS_BUILDER_PATH}/src
 	    
 
-LDFLAGS  := -nostdlib -g -L${LIB_GCC_A_PATH} -lgcc
-CFLAGS   := -Werror ${INCDIRS} -g
+LDFLAGS  := -nostdlib -g -relocatable
+CFLAGS   := -Werror ${INCDIRS} -fPIC -g
 ASFLAGS  := ${INCDIRS} -g 
 TARGET 	 := libMcu_Startup.la
 # include c_l_flags.mk to add more definitions specific to micro-controller
 include ${ROOT_DIR}/c_l_flags.mk
 
-# CFLAGS  += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus
-# LDFLAGS += -mthumb -mthumb-interwork -marmelf 
-
 $(info compiling ${BOARD_NAME} board specific files)
-LDFILE	:= ${MCU_STARTUP_PATH}/${BOARD_NAME}.lds
-LDFLAGS += -T ${LDFILE}
-
 
 
 MCU_STARTUP_OBJS := \
@@ -76,14 +64,17 @@ MCU_STARTUP_OBJS := \
 	${MCU_STARTUP_PATH}/bootrom.o 
 
 
+ARCH_OBJS	:= \
+	${MCU_PATH}/src/bsp/arch/arm/cortex-m0/lowlevel.o \
+	${MCU_PATH}/src/bsp/arch/arm/cortex-m0/interrupt.o
+
 
 all: $(TARGET)
 
-LIB_OBJS := $(MCU_STARTUP_OBJS)
+LIB_OBJS := $(MCU_STARTUP_OBJS) $(ARCH_OBJS)
 
 $(TARGET): $(LIB_OBJS)
-	$(AR) r $@ $^
-	$(RANLIB) $@
+	$(LD) ${LDFLAGS} -o $@ $^
 
 clean:
 	$(RM) $(LIB_OBJS) $(TARGET)

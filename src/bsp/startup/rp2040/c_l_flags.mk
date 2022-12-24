@@ -19,5 +19,11 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 # 
 
+# following flags will be included in all SWCs for building their static library
 CFLAGS  += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus 
+ASFLAGS += -mthumb -mthumb-interwork -march=armv6-m -mcpu=cortex-m0plus 
 LDFLAGS += -mthumb -mthumb-interwork -marmelf 
+
+# following definitions would be used by the main Makefile
+BOARD_NAME := rp2040
+LINK_DEF_F := ${MCU_STARTUP_PATH}/${BOARD_NAME}.lds

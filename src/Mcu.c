@@ -22,5 +22,5 @@
 #include <board.h>
 
 void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
-	bsp_init();
+	bsp_mcu_startup();
 }
