@@ -20,7 +20,10 @@
  */
 #include <Mcu.h>
 #include <board.h>
+#include <os_api.h> // for pr_log()
 
 void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
 	bsp_mcu_startup();
+
+	pr_log("Mcu init complete!\n");
 }
