@@ -41,7 +41,7 @@ Description: This function sets the FIRQ and IRQ bits as passed as arguments.
 /*/
  _set_interrupt_bits:
         and r0, r0, #0xC0       @ clear bits other than 6th and 7th
-        Todo: Fix this
+        TODO: Fix this
         //mrs r1, cpsr
         //orr r0, r1, r0
         //msr cpsr, r0
@@ -60,7 +60,7 @@ Description: This function clears the FIRQ and IRQ bits as passed as arguments.
 /*/
  _clear_interrupt_bits:
         and r0, r0, #0xC0       @ clear bits other than 6th and 7th
-        Todo: Fix this
+        TODO: Fix this
         //mrs r2, cpsr
         //bic r1, r2, #0xC0       @ clear bits other than 6th and 7th
         //orr r0, r1, r0
