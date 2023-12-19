@@ -2,7 +2,7 @@
 #define _QEMU_VERSATILEPB
 
 #include <base_types.h>
-#include <bsp/platform.h>
+#include <cgen/platform.h>
 
 #define QEMU_VERSATILEPB	1
 

@@ -3,6 +3,6 @@
 
 #include <config.h>
 
-#include <toolchain/gcc.h>
+#include <gcc.h>
 
 #endif

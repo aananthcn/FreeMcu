@@ -26,7 +26,7 @@ RANLIB=${COMPILER}ranlib
 OBJCOPY=${COMPILER}objcopy
 
 
-include ${ROOT_DIR}/path_defs.mk
+include ${CAR_OS_PATH}/path_defs.mk
 
 
 INCDIRS  +=  \
@@ -36,7 +36,9 @@ INCDIRS  +=  \
  	    -I ${MCU_PATH}/src/common \
  	    -I ${MCU_PATH}/src/common/api \
  	    -I ${MCU_PATH}/src/common/src \
-	    -I ${MCU_STARTUP_PATH} \
+	    -I ${CAR_OS_INC_PATH}/autosar \
+	    -I ${CAR_OS_INC_PATH}/car_os \
+	    -I ${CAR_OS_BOARDS_PATH} \
 	    -I ${OS_PATH}/include
 
 
@@ -54,7 +56,7 @@ CFLAGS  := -Werror ${INCDIRS} -g
 ASFLAGS := ${INCDIRS} -g
 TARGET 	:= libMcu.la
 # include c_l_flags.mk to add more definitions specific to micro-controller
-include ${ROOT_DIR}/c_l_flags.mk
+include ${CAR_OS_PATH}/c_l_flags.mk
 
 all: $(TARGET)
 

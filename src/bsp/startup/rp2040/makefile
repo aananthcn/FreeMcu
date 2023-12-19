@@ -27,7 +27,7 @@ OBJCOPY=${COMPILER}objcopy
 
 
 include c_l_flags.mk # include the hand-modified local file
-include ${ROOT_DIR}/path_defs.mk
+include ${CAR_OS_PATH}/path_defs.mk
 
 
 INCDIRS  := -I ${MCU_PATH}/src/bsp/startup \
@@ -39,9 +39,10 @@ INCDIRS  := -I ${MCU_PATH}/src/bsp/startup \
  	    -I ${MCU_PATH}/src/common \
  	    -I ${MCU_PATH}/src/common/api \
  	    -I ${MCU_PATH}/src/common/src \
-	    -I ${MCU_STARTUP_PATH} \
 	    -I ${OS_PATH}/include \
 	    -I ${OS_BUILDER_PATH}/src
+
+#     -I ${MCU_STARTUP_PATH} \
 	    
 
 LDFLAGS  := -nostdlib -g -relocatable
@@ -49,7 +50,7 @@ CFLAGS   := -Werror ${INCDIRS} -fPIC -g
 ASFLAGS  := ${INCDIRS} -g 
 TARGET 	 := libMcu_Startup.la
 # include c_l_flags.mk to add more definitions specific to micro-controller
-include ${ROOT_DIR}/c_l_flags.mk
+include ${CAR_OS_PATH}/c_l_flags.mk
 
 $(info  )
 $(info compiling ${BOARD_NAME} board specific files)

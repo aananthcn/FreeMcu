@@ -2,7 +2,7 @@
 #define _BOARD_RP2040
 
 #include <base_types.h>
-#include <bsp/platform.h>
+#include <cgen/platform.h>
 
 #define BOARD_RP2040	1
 

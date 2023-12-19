@@ -34,18 +34,18 @@
 #endif
 
 #if defined(__XCC__)
-#include <toolchain/xcc.h>
+#include <xcc.h>
 #elif defined(__CCAC__)
-#include <toolchain/mwdt.h>
+#include <mwdt.h>
 #elif defined(__llvm__)
-#include <toolchain/llvm.h>
+#include <llvm.h>
 #elif defined(__GNUC__) || (defined(_LINKER) && defined(__GCC_LINKER_CMD__))
-#include <toolchain/gcc.h>
+// #include <gcc.h>
 #else
 /* This include line exists for off-tree definitions of compilers,
  * and therefore this header is not meant to exist in-tree
  */
-#include <toolchain/other.h>
+#include <other.h>
 #endif
 
 /*

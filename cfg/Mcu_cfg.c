@@ -24,4 +24,5 @@
 
 #include <Mcu.h>
 
-Mcu_ConfigType McuConfig ASR_CFG_SECTION(".Mcu");
+// Mcu_ConfigType McuConfig ASR_CFG_SECTION(".Mcu");
+Mcu_ConfigType McuConfig;

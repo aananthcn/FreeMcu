@@ -65,7 +65,7 @@
 #define BUILD_ASSERT(EXPR, MSG...)
 #endif
 
-#include <toolchain/common.h>
+#include <common.h>
 #include <stdbool.h>
 
 #define ALIAS_OF(of) __attribute__((alias(#of)))

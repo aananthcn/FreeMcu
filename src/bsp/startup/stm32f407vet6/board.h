@@ -2,7 +2,7 @@
 #define _BOARD_STM32F407VET6
 
 #include <base_types.h>
-#include <bsp/platform.h>
+#include <cgen/platform.h>
 
 #define BOARD_STM32F407VET6	1
 

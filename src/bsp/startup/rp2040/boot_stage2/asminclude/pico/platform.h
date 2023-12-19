@@ -7,7 +7,7 @@
 #ifndef _PICO_PLATFORM_H_
 #define _PICO_PLATFORM_H_
 
-/** \file platform.h
+/** \file cgen/platform.h
  *  \defgroup pico_platform pico_platform
  *
  * Macros and definitions (and functions when included by non assembly code) for the RP2 family device / architecture

@@ -22,7 +22,7 @@
 #define PLATFORM_TYPES_H
 
 #include <stdint.h>
-#include <bsp/platform.h> // the auto generated file, includes board specific header file
+#include <cgen/platform.h> // the auto generated file, includes board specific header file
 
 
 // PLATFORM027, PLATFORM034
