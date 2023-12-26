@@ -33,14 +33,14 @@ INCDIRS  +=  \
 	    -I ${MCU_PATH}/api \
 	    -I ${MCU_PATH}/cfg \
 	    -I ${MCU_PATH}/src \
- 	    -I ${MCU_PATH}/src/common \
- 	    -I ${MCU_PATH}/src/common/api \
- 	    -I ${MCU_PATH}/src/common/src \
 	    -I ${CAR_OS_INC_PATH}/autosar \
 	    -I ${CAR_OS_INC_PATH}/car_os \
 	    -I ${CAR_OS_BOARD_PATH} \
 	    -I ${OS_PATH}/include
 
+#     -I ${MCU_PATH}/src/common \
+#     -I ${MCU_PATH}/src/common/api \
+#     -I ${MCU_PATH}/src/common/src \
 
 $(info  )
 $(info compiling Mcu source files)
@@ -51,19 +51,29 @@ MCU_OBJS := \
 	${MCU_PATH}/src/Mcu.o
 
 
-LDFLAGS := -g -relocatable
-CFLAGS  := -Werror ${INCDIRS} -g
-ASFLAGS := ${INCDIRS} -g
-TARGET 	:= libMcu.la
+# LDFLAGS := -g -relocatable
+# CFLAGS  := -Werror ${INCDIRS} -g
+# ASFLAGS := ${INCDIRS} -g
+TARGET 	:= libMcu.a
 # include c_l_flags.mk to add more definitions specific to micro-controller
 include ${CAR_OS_PATH}/c_l_flags.mk
 
+
+%.o: %.c
+	$(CC) -c ${CFLAGS} ${INCDIRS} $< -o $@
+
+
 all: $(TARGET)
+
 
 LIB_OBJS := $(MCU_OBJS)
 
+
 $(TARGET): $(LIB_OBJS)
-	$(LD) ${LDFLAGS} -o $@ $^
+	$(AR) -rcs ${TARGET} ${LIB_OBJS}
+
+# $(LD) ${LDFLAGS} -o $@ $^
+
 
 clean:
 	$(RM) $(LIB_OBJS) $(TARGET)
