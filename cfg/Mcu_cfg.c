@@ -19,9 +19,10 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <toolchain/asr_cfg_defs.h>
+#include <asr_cfg_defs.h>
 #include <Platform_Types.h>
 
 #include <Mcu.h>
 
-Mcu_ConfigType McuConfig ASR_CFG_SECTION(".Mcu");
+// Mcu_ConfigType McuConfig ASR_CFG_SECTION(".Mcu");
+Mcu_ConfigType McuConfig;

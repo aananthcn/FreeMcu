@@ -23,7 +23,7 @@
 #include <os_api.h> // for pr_log()
 
 void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
-	bsp_mcu_startup();
+	// bsp_mcu_startup(); Zephyr RTOS will do all these stuffs.
 
 	pr_log("Mcu init complete!\n");
 }
