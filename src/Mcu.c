@@ -20,10 +20,14 @@
  */
 #include <Mcu.h>
 #include <board.h>
-#include <os_api.h> // for pr_log()
+
+
+#include <zephyr/logging/log.h>
+LOG_MODULE_REGISTER(Mcu, LOG_LEVEL_DBG);
+
 
 void Mcu_Init(const Mcu_ConfigType* ConfigPtr) {
 	// bsp_mcu_startup(); Zephyr RTOS will do all these stuffs.
 
-	pr_log("Mcu init complete!\n");
+	LOG_INF("Init complete!");
 }
